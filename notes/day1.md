@@ -23,7 +23,7 @@
 
 
 ## Demos
-```
+```racket
 (define-syntax (f x)
   #'5)
 
@@ -31,7 +31,7 @@
 ```
 the entire 
 
-```
+```racket
 (define-syntax (f x)
   (define e (syntax->list x))
   (second e))
@@ -39,13 +39,13 @@ the entire
 (f 17) ; 16
 ```
 
-```
+```racket
 (define-syntax (define-hello stx)
   #`(define #,(second (syntax->list stx)) "good bye"))
  ```
 
 ### syntax-parse is its own sub language
-```
+```racket
 (define-syntax (define-hello stx)
   (syntax-parse stx
     [(_ the-identifier) #'(define the-identifier "good bye")]))
@@ -54,7 +54,7 @@ the entire
 world 
 ;; "good bye"
 ```
-```
+```racket
 (define-syntax (define-hello stx)
   (syntax-parse stx
     [(_ the-identifier) #'(define the-identifier
@@ -67,7 +67,7 @@ world
 * referentially transparent
 
 ### using dots
-```
+```racket
 (define-syntax (define-hello stx)
   (syntax-parse stx
     [(_ the-identifier:id ...)
@@ -83,7 +83,7 @@ it    ; "good bye"
 ```
 
 ### using `define-for-syntax` to break up code
-```
+```racket
 #lang racket
 
 (require (for-syntax syntax/parse))
@@ -129,7 +129,7 @@ it    ; "good bye"
   * signaling to the reader there is code
 
 ### version with define-syntax
-```
+```racket
 #lang racket
 
 (require (for-syntax syntax/parse))
