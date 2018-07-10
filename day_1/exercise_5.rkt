@@ -6,18 +6,14 @@
 
 (define-syntax (define-rewrite-rule stx)
   (syntax-parse stx
-    [(_ pattern:expr template:expr)
-     #'(define-syntax ((first pattern) stx2)
-         
-       
-
+    [(_ (name:id pattern:expr ...) tmpl:expr)
+     #'(define-syntax (name stx)
+          (syntax-parse stx
+            [(_ pattern ...)
+             #'tmpl]))]))
+                
 (define-rewrite-rule
-  (loop-for-ever exp)
-  ; —> 
-  (local ((define (for-ever) (begin exp (for-ever)))) (for-ever)))
-;; vvvvvvvvvvvvvvvvvvvvvvv
-(define-syntax (loop-for-ever stx)
-  (syntax-parse stx
-    [(_ exp)
-     ((local ((define (for-ever) (begin exp (for-ever)))) (for-ever)))]))
-  
+  (print-twice exp)
+  (begin (displayln exp) (displayln exp)))
+
+(print-twice "hello")

@@ -7,7 +7,7 @@
     [(_ (function-name:id parameter:id ...) body:expr)
      (define arity (length (syntax->list #'(parameter ...))))
      #`(define-syntax function-name
-         (cons #,arity #'(lambda (parameter ...))))]))
+         (cons #,arity #'(lambda (parameter ...) body)))]))
 
 (define-syntax (function-app stx)
   (syntax-parse stx
