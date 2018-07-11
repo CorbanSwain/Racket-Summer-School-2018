@@ -143,3 +143,26 @@
 (syntax/loc the-x-id (+ 1 2))
 ;; syntax object from foo.rkt:3:19
 ```
+
+## Creating a simple language
+* working on file arith.rkt and arith-test.rkt
+  * using s-expression parser
+  * infinite loop from the cr
+```racket
+#lang racket
+(require (for-syntax syntax/parse))
+
+(provide #%module-begin
+         (rename-out [zero #%datum]))
+
+(define-syntax (zero stx)
+  (syntax-parse stx
+    [(_ . n:number) #'n]
+    [(_ . s:string) #'s]
+    [(_ . other)
+     (raise-syntax-error 'simple
+                         "you can only write a number or string"
+                         #'other)]))
+```
+
+## Registering collections
